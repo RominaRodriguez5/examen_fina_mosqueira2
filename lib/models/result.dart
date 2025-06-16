@@ -7,10 +7,10 @@ class Result {
   String url;
   String slug;
   String name;
-  NetPrecision status;
+  Result status;
   DateTime lastUpdated;
   DateTime net;
-  NetPrecision netPrecision;
+  Result netPrecision;
   DateTime windowEnd;
   DateTime windowStart;
   String lspName;
@@ -60,10 +60,10 @@ class Result {
     url: json["url"],
     slug: json["slug"],
     name: json["name"],
-    status: NetPrecision.fromMap(json["status"]),
+    status: Result.fromMap(json["status"]),
     lastUpdated: DateTime.parse(json["last_updated"]),
     net: DateTime.parse(json["net"]),
-    netPrecision: NetPrecision.fromMap(json["net_precision"]),
+    netPrecision: Result.fromMap(json["net_precision"]),
     windowEnd: DateTime.parse(json["window_end"]),
     windowStart: DateTime.parse(json["window_start"]),
     lspName: json["lsp_name"],
