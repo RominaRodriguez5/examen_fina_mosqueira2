@@ -1,83 +1,53 @@
 import 'package:examen_fina_mosqueira2/models/result.dart';
+
 import 'package:flutter/material.dart'; // Importa el paquete de widgets de Flutter
 
+// Define un widget sin estado llamado DetailScreen
 class DetailScreen extends StatelessWidget {
-  final Result precision;
+  final Result result; // Declara una variable final para almacenar el usuario
 
-  const DetailScreen({super.key, required this.precision});
+  // Constructor que recibe un usuario como parámetro requerido
+  const DetailScreen({super.key, required this.result});
 
   @override
   Widget build(BuildContext context) {
+    // Construye la interfaz de usuario
     return Scaffold(
-      backgroundColor: Colors.indigo[50],
       appBar: AppBar(
-        title: const Text('Detalle de un lanzamiento'),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            Center(
-              child: CircleAvatar(
-                radius: 60,
-                backgroundColor: Colors.grey[300],
-                backgroundImage: (precision.image?.isNotEmpty ?? false)
-                    ? NetworkImage(precision.image!)
-                    : null,
-                child: (precision.image?.isEmpty ?? true)
-                    ? const Icon(Icons.person, size: 60, color: Colors.white70)
-                    : null,
-              ),
-            ),
-            const SizedBox(height: 30),
-            _buildDetailRow(
-              Icons.verified_user,
-              'Nombre del lanzamiento',
-              precision.name,
-            ),
-            const SizedBox(height: 12),
-            _buildDetailRow(Icons.email, 'descripcion', precision.lspName),
-            const SizedBox(height: 12),
-            _buildDetailRow(
-              Icons.location_on,
-              'Agencia responsable',
-              precision.mission,
-            ),
-            const SizedBox(height: 12),
-            _buildDetailRow(
-              Icons.phone,
-              'Fecha de lanzamiento',
-              precision.net as String,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+        title: Text(result.name),
+      ), // Barra superior con el nombre del usuario
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20), // Padding alrededor del contenido
+          child: Column(
+            crossAxisAlignment:
+                CrossAxisAlignment.start, // Alinea los hijos al inicio
+            children: [
+              Center(),
+              const SizedBox(height: 20), // Espacio vertical
 
-  Widget _buildDetailRow(IconData icon, String label, String value) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.indigo.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
+              Text(
+                'Nombre: ${result.name}', // Muestra el nombre
+                style: const TextStyle(fontSize: 18), // Estilo de texto
+              ),
+              const SizedBox(height: 8), // Espacio vertical
+              Text(
+                'Tipo: ${result.launcher}',
+                style: const TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Precio: ${result.net}',
+                style: const TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Descripción: ${result.infographic}',
+                style: const TextStyle(fontSize: 18),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.indigo),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text('$label: $value', style: const TextStyle(fontSize: 16)),
-          ),
-        ],
+        ),
       ),
     );
   }

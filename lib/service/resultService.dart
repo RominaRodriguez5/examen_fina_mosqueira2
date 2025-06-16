@@ -36,10 +36,26 @@ class ResultService extends ChangeNotifier {
   }
 
   // Borra un objeto por ID
-  Future<void> deleteObject(String id) async {
+  Future<void> deleteObject(String id, {required bool isOnline}) async {
     final resp = await http.delete(Uri.parse('$_baseUrl/$id'));
     if (resp.statusCode != 200) {
       throw Exception('Error borrando objeto');
     }
+  }
+
+  Future<void> updateHeroe(String id, Result heroe) async {
+    final url = Uri.parse('$_baseUrl/$id');
+    final res = await http.put(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: heroe.toJson(),
+    );
+
+    if (res.statusCode != 200) {
+      throw Exception('Error al actualizar heroe');
+    }
+
+    // Notificar a los listeners que se ha actualizado un heroe
+    notifyListeners();
   }
 }
